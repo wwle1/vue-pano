@@ -125,26 +125,19 @@ export default {
       if (this.fullscreen) {
         height = width = '100%'
       } else if (+width == width && +height == height) {
-        if (width > this.$el.parentNode.clientWidth) {
-          width = '100%'
-        } else {
-          width += 'px'
-        }
-
-        if (height > this.$el.parentNode.clientHeight) {
-          height = '100%'
-        } else {
-          height += 'px'
-        }
+        width += 'px'
+        height += 'px'
       }
 
       canvas.style.width = viewport.style.width = width ? width : '100%'
       canvas.style.height = viewport.style.height = height ? height : '100%'
+
       canvas.width = canvas.clientWidth * ratio
       canvas.height = canvas.clientHeight * ratio
 
       this.gl.viewport(0, 0, canvas.width, canvas.height)
-      this.draw(true)
+      if (this.program)
+        this.draw(true)
     },
 
     initShaders() {
@@ -401,7 +394,7 @@ export default {
 
     this.initShaders()
     this.loadTextures()
-    this.initModel() 
+    this.initModel()
     this.draw()
   },
 
